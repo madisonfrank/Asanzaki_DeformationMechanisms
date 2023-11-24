@@ -1,3 +1,33 @@
+%% Import Script for EBSD Data - automatically created by the import wizard. 
+
+%% Specify Crystal and Specimen Symmetries
+
+% crystal symmetry
+CS = {... 
+  'notIndexed',...
+  crystalSymmetry('-3m1', [5 5 17], 'X||a*', 'Y||b', 'Z||c*', 'mineral', 'Calcite', 'color', [0.53 0.81 0.98]),...
+  crystalSymmetry('12/m1', [5.2 9.1 14], [90,97.03,90]*degree, 'X||a*', 'Y||b*', 'Z||c', 'mineral', 'Chlorite', 'color', [0.56 0.74 0.56])};
+
+% plotting convention
+setMTEXpref('xAxisDirection','east');
+setMTEXpref('zAxisDirection','intoPlane');
+
+%% Specify File Names
+
+% IMPORTANT - declare path to folder containing ctf file to be imported
+pname = '';
+
+% which files to be imported
+fname = [pname '\Micrite_block_interior.ctf'];
+
+%% Import the Data
+
+% create an EBSD variable containing the data
+ebsd = EBSD.load(fname,CS,'interface','ctf',...
+  'convertEuler2SpatialReferenceFrame');
+
+%% PROCESSING SECTION %%
+
 %% Script calculate microcrystalline grain size & CPO
 %% Created by Madison Frank, updated, 2023/06/06 
 
