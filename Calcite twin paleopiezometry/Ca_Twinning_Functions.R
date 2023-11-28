@@ -25,19 +25,11 @@ getRawTwins <- function(filepath, sheet, startRow, colnames){
   # Calculate twins/mm
   twin_data$density <- twin_data$twins/twin_data$distance_mm
   
-  # Calculate log of twin density (e.g. Fig 9 from Rowe & Rutter 1990)
-  twin_data$logDensity <- log10(twin_data$density)
-  
   # Calculate differential stress following Rybacki et al., 2013
-
-  twin_data$logDiffStress <- 1.29 + 0.5*(twin_data$logDensity)
-  twin_data$diffStress <- 10^(twin_data$logDiffStress)
+  twin_data$diffStress <- 19.5 * sqrt(twin_data$density)
   
-  twin_data$logError <- 1.27 + 0.45*(twin_data$logDensity)
-  twin_data$error <- twin_data$diffStress - 10^(twin_data$logError)
-  
-  # convert differential stress to shear stress
-  twin_data$shearStress <- twin_data$diffStress/2
+  twin_data$error_high <- (19.5 + 9.8) * sqrt(twin_data$density)
+  twin_data$error_low <- (19.5 - 9.8) * sqrt(twin_data$density)
   
   return(twin_data)
 }
